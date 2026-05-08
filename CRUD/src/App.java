@@ -436,6 +436,7 @@ server.createContext("/atualizar", exchange -> {
 
 
         // ELIMINAR CLIENTE
+                                                                                                                                                                
         server.createContext("/apagar", exchange -> {
             StringBuilder html = new StringBuilder();
             try {
