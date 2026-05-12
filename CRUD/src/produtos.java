@@ -15,6 +15,6 @@ public class produtos {
 
     @Override
     public String toString() {
-        return produtos;
+        return produto;
     }
 }

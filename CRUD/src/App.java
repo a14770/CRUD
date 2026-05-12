@@ -198,7 +198,7 @@ public class App {
             }
             try {
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("SELECT * FROM clientes");
+                ResultSet rs = st.executeQuery("SELECT * FROM produtos");
                 while (rs.next()) {
                     int id = rs.getInt("id");
                     String refproduto = rs.getString("refproduto");
@@ -211,7 +211,7 @@ public class App {
                     html.append("<td>");
                     html.append("<a href='/editar?id=").append(id).append("'>Editar</a>");
                     html.append("<a href='/apagar?id=").append(id)
-                            .append("' onclick=\"return confirm('Eliminar cliente?')\">Apagar</a>");
+                            .append("' onclick=\"return confirm('Eliminar produto?')\">Apagar</a>");
                     html.append("</td>");
                     html.append("</tr>");
                 }
@@ -424,6 +424,7 @@ public class App {
                 if (con == null) {
                     throw new Exception("Ligação à BD falhou!");
                 }
+                // Ajustado para a tabela produtos e as tuas colunas
                 String sql = "INSERT INTO produtos(refproduto,produto,preco) VALUES (?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, refproduto);
@@ -445,7 +446,7 @@ public class App {
                             </head>
                             <body>
                             <h2>:-) Produto guardado com sucesso!</h2>
-                            <a href='/produtos'>Ver produtos</a><br><br>
+                            <a href='/produtos'>Ver lista de produtos</a><br><br>
                             <a href='/produtonovo'>Inserir novo produto</a>
                             </body>
                             </html>
@@ -468,8 +469,9 @@ public class App {
             exchange.sendResponseHeaders(200, html.toString().getBytes().length);
             exchange.getResponseBody().write(html.toString().getBytes());
             exchange.close();
-        });        
+        });
 
+        
         // FORM EDITAR
         server.createContext("/editar", exchange -> {
             StringBuilder html = new StringBuilder();
